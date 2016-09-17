@@ -30,7 +30,7 @@
             <h1>Are you game?</h1>
             <p>Be the first to get an invite when we launch.</p>
             <p class="already-in">213 already in</p>
-            <form action="//readef.us11.list-manage.com/subscribe/post?u=5b486ff30b72a43d5b20eeb42&amp;id=df42f2ba0e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+            <form action="//readef.us11.list-manage.com/subscribe/post?u=5b486ff30b72a43d5b20eeb42&amp;id=df42f2ba0e&c=?" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                 <input type="email" placeholder="your@email.com" class="input-text" name="email" id="mce-EMAIL" required>
                 <button type="submit" class="submit-btn" name="subscribe" id="mc-embedded-subscribe" ><img src="images/ripple.svg" alt=""><span>count me in</span></button>
             </form>
@@ -149,6 +149,7 @@
             $.ajax({
                 type: 'POST',
                 url: $(form).attr('action'),
+                dataType: 'jsonp',
                 data: formData
             }).done(function(response) {
                 $(form).removeClass('error');
