@@ -541,6 +541,15 @@ footer .mock-img {
     }
 }
 
+@media screen and (max-height:520px) {
+    .st-logo {
+        margin: 30px auto 0;
+    }
+    .main {
+        margin: 25px auto 0;
+    }
+}
+
 @media screen and (max-height:500px) {
     footer {
         display: none
