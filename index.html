@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Gaurav Baheti">
-    <meta name="description" content="Hi, I'm Gaurav Baheti and I design and code digital products.">
-    <title>StockLo</title>
-    <link rel="icon" type="image/png" href="images/profile4.png">
+    <meta name="author" content="StockLo">
+    <meta name="description" content="Learn the art of investing by playing.">
+    <title>StockLo - Game of Stocks</title>
+    <link rel="icon" type="image/png" href="images/favicon.jpg">
     <link rel="stylesheet" href="css/style.css" />
     <meta property="og:site_name" content="StockLo" />
     <meta property="og:title" content="StockLo" />
@@ -17,7 +17,7 @@
     <meta itemprop="url" content="http://stocklo.com/" />
     <meta name="twitter:title" content="StockLo" />
     <meta name="twitter:url" content="http://stocklo.com/" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="Learn the art of investing by playing." />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <!--[if lt IE 9]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -26,13 +26,13 @@
 <body>
     <div class="overlay">
         <div class="message">
-        	<img src="images/yo.svg" alt="">
+            <img src="images/yo.svg" alt="">
             <h1>Are you game?</h1>
             <p>Be the first to get an invite when we launch.</p>
             <p class="already-in">213 already in</p>
-            <form action="">
-                <input type="email" placeholder="your@email.com" class="input-text" required>
-                <button type="submit" class="submit-btn">count me in</button>
+            <form action="" method="post" id="email-form" class="">
+                <input type="email" placeholder="your@email.com" class="input-text">
+                <button type="submit" class="submit-btn"><img src="images/ripple.svg" alt=""><span>count me in</span></button>
             </form>
             <a href="" class="close-btn"><img src="images/close.svg" alt=""></a>
         </div>
@@ -102,8 +102,67 @@
             <div class="cutit"></div>
         </div>
     </div>
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-33385057-3', 'auto');
+    ga('send', 'pageview');
+    </script>
     <script src="js/jquery-1.7.1.min.js"></script>
-    <script src="js/site.js"></script>
+    <script>
+    $(document).ready(function() {
+        $(".get-started, .mock-img").on("click", function(e) {
+            e.preventDefault();
+            $(".overlay").addClass("show");
+            $(".message").addClass("show-message");
+        });
+        $(".close-btn").on("click", function(e) {
+            e.preventDefault();
+            $(".overlay").removeClass("show");
+            $(".message").removeClass("show-message");
+        });
+        $(document).on('keyup', function(e) {
+            if (e.keyCode === 27) {
+                console.log("press");
+                $(".overlay").removeClass("show");
+                $(".message").removeClass("show-message");
+            };
+        });
+        //collect email
+        var form = $('#email-form');
+        var button = $('.submit-btn');
+        $(form).submit(function(e) {
+            e.preventDefault();
+            button.addClass("loading");
+            var formData = $(".input-text").val();
+            // $.ajax({
+            //     type: 'POST',
+            //     url: $(form).attr('action'),
+            //     data: formData
+            // }).done(function(response) {
+            //     $(form).removeClass('error');
+            //     $(button).addClass('success');
+            //     $(button).text(response);
+            //     $('.input-text').val('');
+            //     button.removeClass("loading");
+            // }).fail(function(data) {
+            //     $(form).addClass('error');
+            //     $(button).removeClass('success');
+            //     button.removeClass("loading");
+            // });
+        });
+    });
+    </script>
 </body>
 
 </html>
