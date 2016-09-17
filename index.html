@@ -30,11 +30,17 @@
             <h1>Are you game?</h1>
             <p>Be the first to get an invite when we launch.</p>
             <p class="already-in">213 already in</p>
-            <form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                <input type="email" placeholder="your@email.com" class="input-text" name="email" id="mce-EMAIL" required>
-                <button type="submit" class="submit-btn" name="subscribe" id="mc-embedded-subscribe" ><img src="images/ripple.svg" alt=""><span>count me in</span></button>
+            <form action="http://readef.us11.list-manage.com/subscribe/post-json?u=5b486ff30b72a43d5b20eeb42&amp;id=df42f2ba0e&c=?" method="get" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <input type="email" value="" name="EMAIL" class=" input-text required email" id="mce-EMAIL" placeholder="your@email.com">
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                    <input type="text" name="b_5b486ff30b72a43d5b20eeb42_df42f2ba0e" tabindex="-1" value="">
+                </div>
+                <button type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="submit-btn"><img src="images/ripple.svg" alt=""><span>count me in</span></button>
             </form>
-
             <a href="" class="close-btn"><img src="images/close.svg" alt=""></a>
         </div>
     </div>
@@ -120,6 +126,19 @@
     ga('send', 'pageview');
     </script>
     <script src="js/jquery-1.7.1.min.js"></script>
+    <script type='text/javascript' src='http://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+    <script>
+    (function($) {
+        window.fnames = new Array();
+        window.ftypes = new Array();
+        fnames[0] = 'EMAIL';
+        ftypes[0] = 'email';
+        fnames[1] = 'FNAME';
+        ftypes[1] = 'text';
+        fnames[2] = 'LNAME';
+        ftypes[2] = 'text';
+    }(jQuery));
+    </script>
     <script>
     $(document).ready(function() {
         $(".get-started, .mock-img").on("click", function(e) {
@@ -145,22 +164,31 @@
         $(form).submit(function(e) {
             e.preventDefault();
             button.addClass("loading");
+            $(form).removeClass('error');
             var formData = $("#mc-embedded-subscribe-form").serialize();
             $.ajax({
-                type: 'POST',
-                url: 'http://readef.us11.list-manage.com/subscribe/post?u=5b486ff30b72a43d5b20eeb42&amp;id=df42f2ba0e&c=?',
+                type: $(form).attr('method'),
+                url: $(form).attr('action'),
                 dataType: 'jsonp',
-                contentType: "application/jsonp; charset=utf-8",
-                data: formData
-            }).done(function(response) {
-                $(form).removeClass('error');
-                $(button).addClass('success');
-                $(button).text("We'll get in touch soon!");
-                button.removeClass("loading");
-            }).fail(function(data) {
-                $(form).addClass('error');
-                $(button).removeClass('success');
-                button.removeClass("loading");
+                data: formData,
+                error: function(data) {
+                    $(form).addClass('error');
+                    $(button).removeClass('success');
+                    button.removeClass("loading");
+                },
+                success: function(data) {
+                    if (data.result != "success") {
+                        $(form).addClass('error');
+                        $(button).removeClass('success');
+                        $(button).attr('disabled');
+                        button.removeClass("loading");
+                    } else {
+                        $(form).removeClass('error');
+                        $(button).addClass('success');
+                        $(button).text("Check your email!");
+                        button.removeClass("loading");
+                    }
+                }
             });
         });
     });
